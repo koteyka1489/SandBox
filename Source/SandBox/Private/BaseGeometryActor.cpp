@@ -16,6 +16,18 @@ void ABaseGeometryActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	//PrintType();
+}
+
+// Called every frame
+void ABaseGeometryActor::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+}
+
+void ABaseGeometryActor::PrintType()
+{
 	UE_LOG(LogTemp, Display, TEXT("HELLO PUBES"));
 	UE_LOG(LogTemp, Warning, TEXT("HELLO PUBES"));
 	UE_LOG(LogTemp, Error, TEXT("HELLO PUBES"));
@@ -32,13 +44,6 @@ void ABaseGeometryActor::BeginPlay()
 	UE_LOG(LogTemp, Display, TEXT("Heals Num - %.2f"), heals);
 	UE_LOG(LogTemp, Display, TEXT("Is Dead - %i"), static_cast<int>(isDead));
 	UE_LOG(LogTemp, Display, TEXT("Is LOX - %i"), isLox);
-
-}
-
-// Called every frame
-void ABaseGeometryActor::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
 
 }
 
