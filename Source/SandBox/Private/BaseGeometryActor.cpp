@@ -33,17 +33,6 @@ void ABaseGeometryActor::BeginPlay()
 	UE_LOG(LogTemp, Display, TEXT("Is Dead - %i"), static_cast<int>(isDead));
 	UE_LOG(LogTemp, Display, TEXT("Is LOX - %i"), isLox);
 
-	killsNum = 200;
-	weaponNum = 100;
-	heals = 666.9999;
-	UE_LOG(LogTemp, Display, TEXT("Kills Num - %i"), killsNum);
-	UE_LOG(LogTemp, Display, TEXT("Weapon Num - %i"), weaponNum);
-	UE_LOG(LogTemp, Display, TEXT("Heals Num - %f"), heals);
-	UE_LOG(LogTemp, Display, TEXT("KURWA - %.3f"), heals);
-
-	UE_LOG(LogTemp, Display, TEXT("KURWAMATKA - %.3f"), heals);
-	UE_LOG(LogTemp, Display, TEXT("KURWAMATKA - %.3f"), heals);
-	UE_LOG(LogTemp, Display, TEXT("KURWAMATKA - %.3f"), heals);
 }
 
 // Called every frame
