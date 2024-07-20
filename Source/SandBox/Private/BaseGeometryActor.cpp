@@ -12,22 +12,32 @@ ABaseGeometryActor::ABaseGeometryActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>("Base Mesh");
+	SetRootComponent(BaseMesh);
+	
 }
 
 // Called when the game starts or when spawned
 void ABaseGeometryActor::BeginPlay()
 {
 	Super::BeginPlay();
-	//PrintStringTypes();
 
-	PrintType();
+	InitLocation = GetActorLocation();
+
+
+
+	//PrintStringTypes();
+	//PrintType();
+	//PrintTransform();
 }
 
 // Called every frame
 void ABaseGeometryActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	SetZAmplitudeTransform();
+
+	
 
 }
 
@@ -62,5 +72,29 @@ void ABaseGeometryActor::PrintStringTypes()
 
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, name);
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, stat, true, FVector2D(1.5f, 1.5f));
+}
+
+void ABaseGeometryActor::PrintTransform()
+{
+	FTransform Transform = GetActorTransform();
+	FVector Location = Transform.GetLocation();
+	FRotator Rotator = Transform.Rotator();
+	FVector Scale = Transform.GetScale3D();
+
+	UE_LOG(LogBaseGeometryActor, Warning, TEXT("Actor NAme - %s"), *GetName());
+	UE_LOG(LogBaseGeometryActor, Warning, TEXT("Transform - %s"), *Transform.ToString());
+	UE_LOG(LogBaseGeometryActor, Warning, TEXT("Location - %s"), *Location.ToString());
+	UE_LOG(LogBaseGeometryActor, Warning, TEXT("Rotator - %s"), *Rotator.ToString());
+	UE_LOG(LogBaseGeometryActor, Warning, TEXT("Scale - %s"), *Scale.ToString());
+
+	UE_LOG(LogBaseGeometryActor, Error, TEXT("Transform - %s"), *Transform.ToHumanReadableString());
+}
+
+void ABaseGeometryActor::SetZAmplitudeTransform()
+{
+	FVector CurentLocation = GetActorLocation();
+	float Time = GetWorld()->GetTimeSeconds();
+	CurentLocation.Z = InitLocation.Z + Amplitude * FMath::Sin(Frequency * Time);
+	SetActorLocation(CurentLocation);
 }
 
