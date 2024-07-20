@@ -19,9 +19,9 @@ ABaseGeometryActor::ABaseGeometryActor()
 void ABaseGeometryActor::BeginPlay()
 {
 	Super::BeginPlay();
-	PrintStringTypes();
+	//PrintStringTypes();
 
-	//PrintType();
+	PrintType();
 }
 
 // Called every frame
@@ -33,22 +33,14 @@ void ABaseGeometryActor::Tick(float DeltaTime)
 
 void ABaseGeometryActor::PrintType()
 {
-	//UE_LOG(LogTemp, Display, TEXT("HELLO PUBES"));
-	//UE_LOG(LogTemp, Warning, TEXT("HELLO PUBES"));
-	//UE_LOG(LogTemp, Error, TEXT("HELLO PUBES"));
 
-	//int killsNum = 4;
-	//int weaponNum = 5;
-	//float heals = 34.78956;
-	//bool isDead = false;
-	//bool isLox = true;
 
-	//UE_LOG(LogTemp, Display, TEXT("Kills Num - %i"), killsNum);
-	//UE_LOG(LogTemp, Display, TEXT("Weapon Num - %i"), weaponNum);
-	//UE_LOG(LogTemp, Display, TEXT("Heals Num - %f"), heals);
-	//UE_LOG(LogTemp, Display, TEXT("Heals Num - %.2f"), heals);
-	//UE_LOG(LogTemp, Display, TEXT("Is Dead - %i"), static_cast<int>(isDead));
-	//UE_LOG(LogTemp, Display, TEXT("Is LOX - %i"), isLox);
+	UE_LOG(LogBaseGeometryActor, Warning, TEXT("%s"), *GetName());
+	UE_LOG(LogBaseGeometryActor, Warning, TEXT("Kills Num - %i"), killsNum);
+	UE_LOG(LogBaseGeometryActor, Warning, TEXT("Weapon Num - %i"), weaponNum);
+	UE_LOG(LogBaseGeometryActor, Warning, TEXT("Heals Num - %f"), heals);
+	UE_LOG(LogBaseGeometryActor, Warning, TEXT("Is Dead - %i"), static_cast<int>(isDead));
+	UE_LOG(LogBaseGeometryActor, Warning, TEXT("Is LOX - %i"), isLox);
 
 }
 
@@ -58,9 +50,7 @@ void ABaseGeometryActor::PrintStringTypes()
 	UE_LOG(LogBaseGeometryActor, Display, TEXT("name - %s"), *name);
 
 
-	int weaponNum = 5;
-	float heals = 34.78956;
-	bool isDead = false;
+
 
 	FString strWeaponNum = TEXT("WeaponNum = ") + FString::FromInt(weaponNum);
 	FString strHeals = TEXT("Heals = ") + FString::SanitizeFloat(heals);
