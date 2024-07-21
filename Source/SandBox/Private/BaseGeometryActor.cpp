@@ -24,8 +24,9 @@ void ABaseGeometryActor::BeginPlay()
 
 	InitLocation = GetActorLocation();
 
-	SetColor();
+	SetColor(GeometryData.Color);
 
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &ABaseGeometryActor::TimerOnFire, GeometryData.TimerRate, true);
 
 	//PrintStringTypes();
 	//PrintType();
@@ -115,12 +116,29 @@ void ABaseGeometryActor::SetZAmplitudeTransform()
 	SetActorLocation(CurentLocation);
 }
 
-void ABaseGeometryActor::SetColor()
+void ABaseGeometryActor::SetColor(FLinearColor color)
 {
 	UMaterialInstanceDynamic* DynMaterial = BaseMesh->CreateAndSetMaterialInstanceDynamic(0);
 	if (DynMaterial)
 	{
-		DynMaterial->SetVectorParameterValue("Color", GeometryData.Color);
+		DynMaterial->SetVectorParameterValue("Color", color);
 	}
+}
+
+void ABaseGeometryActor::TimerOnFire()
+{
+
+	if (++TimerCount < MaxTimerCount)
+	{
+		FLinearColor NewColor = FLinearColor::MakeRandomColor();
+		UE_LOG(LogBaseGeometryActor, Warning, TEXT("New Color - %s"), *NewColor.ToString());
+		SetColor(NewColor);
+	}
+	else
+	{
+		GetWorldTimerManager().ClearTimer(TimerHandle);
+		UE_LOG(LogBaseGeometryActor, Error, TEXT("Timer Done - %s"), *GetName());
+	}
+
 }
 
