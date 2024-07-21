@@ -24,6 +24,7 @@ void ABaseGeometryActor::BeginPlay()
 
 	InitLocation = GetActorLocation();
 
+	SetColor();
 
 
 	//PrintStringTypes();
@@ -112,5 +113,14 @@ void ABaseGeometryActor::SetZAmplitudeTransform()
 	float Time = GetWorld()->GetTimeSeconds();
 	CurentLocation.Z = InitLocation.Z + GeometryData.Amplitude * FMath::Sin(GeometryData.Frequency * Time);
 	SetActorLocation(CurentLocation);
+}
+
+void ABaseGeometryActor::SetColor()
+{
+	UMaterialInstanceDynamic* DynMaterial = BaseMesh->CreateAndSetMaterialInstanceDynamic(0);
+	if (DynMaterial)
+	{
+		DynMaterial->SetVectorParameterValue("Color", GeometryData.Color);
+	}
 }
 
