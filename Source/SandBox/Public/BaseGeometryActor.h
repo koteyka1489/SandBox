@@ -7,6 +7,30 @@
 #include "Components/StaticMeshComponent.h"
 #include "BaseGeometryActor.generated.h"
 
+UENUM(BlueprintType)
+enum class EMoveType : uint8
+{
+	Static UMETA(DisplayName = "Static"),
+	Sin UMETA(DisplayName = "Sin")
+};
+
+USTRUCT(BlueprintType)
+struct FGeometryData
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float Amplitude = 50.f;
+
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float Frequency = 2.f;
+
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	EMoveType MoveType = EMoveType::Static;
+
+};
+
+
 UCLASS()
 class SANDBOX_API ABaseGeometryActor : public AActor
 {
@@ -23,12 +47,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, Category = "Movement")
-	float Amplitude = 50.f;
-
-	UPROPERTY(EditAnywhere, Category = "Movement")
-	float Frequency = 2.f;
-
+	UPROPERTY(EditAnywhere, Category = "Geometry Data")
+	FGeometryData GeometryData;
 
 	UPROPERTY(EditAnywhere, Category = "Stat")
 	int32 killsNum = 4;

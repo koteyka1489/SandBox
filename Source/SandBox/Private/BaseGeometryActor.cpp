@@ -35,7 +35,23 @@ void ABaseGeometryActor::BeginPlay()
 void ABaseGeometryActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	SetZAmplitudeTransform();
+
+	switch (GeometryData.MoveType)
+	{
+		case EMoveType::Sin:
+		{
+			SetZAmplitudeTransform();
+			break;
+		}
+		case EMoveType::Static:
+		{
+			break;
+		}
+			
+	}
+		
+	
+	
 
 	
 
@@ -94,7 +110,7 @@ void ABaseGeometryActor::SetZAmplitudeTransform()
 {
 	FVector CurentLocation = GetActorLocation();
 	float Time = GetWorld()->GetTimeSeconds();
-	CurentLocation.Z = InitLocation.Z + Amplitude * FMath::Sin(Frequency * Time);
+	CurentLocation.Z = InitLocation.Z + GeometryData.Amplitude * FMath::Sin(GeometryData.Frequency * Time);
 	SetActorLocation(CurentLocation);
 }
 
