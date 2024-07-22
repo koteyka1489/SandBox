@@ -77,9 +77,6 @@ void ABaseGeometryActor::PrintStringTypes()
 	FString name = "John Pubes";
 	UE_LOG(LogBaseGeometryActor, Display, TEXT("name - %s"), *name);
 
-
-
-
 	FString strWeaponNum = TEXT("WeaponNum = ") + FString::FromInt(weaponNum);
 	FString strHeals = TEXT("Heals = ") + FString::SanitizeFloat(heals);
 	FString strIsDead = TEXT("IsDEAD = ") + FString(isDead ? "True" : "False");
@@ -88,8 +85,12 @@ void ABaseGeometryActor::PrintStringTypes()
 
 	UE_LOG(LogBaseGeometryActor, Warning, TEXT("%s"), *stat);
 
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, name);
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, stat, true, FVector2D(1.5f, 1.5f));
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, name);
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, stat, true, FVector2D(1.5f, 1.5f));
+	}
+	
 }
 
 void ABaseGeometryActor::PrintTransform()
@@ -118,6 +119,7 @@ void ABaseGeometryActor::SetZAmplitudeTransform()
 
 void ABaseGeometryActor::SetColor(FLinearColor color)
 {
+	if (!BaseMesh) return;
 	UMaterialInstanceDynamic* DynMaterial = BaseMesh->CreateAndSetMaterialInstanceDynamic(0);
 	if (DynMaterial)
 	{
