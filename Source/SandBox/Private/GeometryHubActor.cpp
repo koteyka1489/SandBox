@@ -3,6 +3,8 @@
 
 #include "GeometryHubActor.h"
 
+DEFINE_LOG_CATEGORY_STATIC(GeometryHub, All, All);
+
 // Sets default values
 AGeometryHubActor::AGeometryHubActor()
 {
@@ -16,8 +18,8 @@ void AGeometryHubActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	SpawnActor1();
-	SpawnActor2();
+	//SpawnActor1();
+	//SpawnActor2();
 	SpawnActor3();
 
 }
@@ -83,9 +85,29 @@ void AGeometryHubActor::SpawnActor3()
 			if (Geometry)
 			{
 				Geometry->SetGeometryData(PayLoadTemp.Data);
+				Geometry->OnColorChange.AddDynamic(this, &AGeometryHubActor::OnColorChange);
+				Geometry->OnTimerFinished.AddUObject(this, &AGeometryHubActor::OnTimerFinished);
 				Geometry->FinishSpawning(PayLoadTemp.InitialTransform);
 			}
 		}
+	}
+}
+
+void AGeometryHubActor::OnColorChange(const FLinearColor Color, const FString Name)
+{
+	UE_LOG(GeometryHub, Warning, TEXT("Name - %s Color - %s"), *Name, *Color.ToString());
+}
+
+void AGeometryHubActor::OnTimerFinished(AActor* Actor)
+{
+	if (!Actor) return;
+	UE_LOG(GeometryHub, Error, TEXT("TIMER FINISHED %s"), *Actor->GetName());
+
+
+	ABaseGeometryActor* Geometry = Cast<ABaseGeometryActor>(Actor);
+	if (Geometry)
+	{
+		UE_LOG(GeometryHub, Error, TEXT("CAST IS WORKINGGGGG %s"), *Geometry->GetName());
 	}
 }
 

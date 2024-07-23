@@ -135,11 +135,13 @@ void ABaseGeometryActor::TimerOnFire()
 		FLinearColor NewColor = FLinearColor::MakeRandomColor();
 		UE_LOG(LogBaseGeometryActor, Warning, TEXT("New Color - %s"), *NewColor.ToString());
 		SetColor(NewColor);
+		OnColorChange.Broadcast(NewColor, GetName());
 	}
 	else
 	{
 		GetWorldTimerManager().ClearTimer(TimerHandle);
 		UE_LOG(LogBaseGeometryActor, Error, TEXT("Timer Done - %s"), *GetName());
+		OnTimerFinished.Broadcast(this);
 	}
 
 }

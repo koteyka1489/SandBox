@@ -50,4 +50,10 @@ private:
 	void SpawnActor1();
 	void SpawnActor2();
 	void SpawnActor3();
+
+	UFUNCTION()
+	void OnColorChange(const FLinearColor Color, const FString Name);
+
+	void OnTimerFinished(AActor* Actor);
+
 };
