@@ -2,6 +2,9 @@
 
 
 #include "SandBoxPawn.h"
+#include "Components/InputComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Camera/CameraComponent.h"
 
 DEFINE_LOG_CATEGORY_STATIC(SandBoxPawnLog, All, All);
 
@@ -14,6 +17,12 @@ ASandBoxPawn::ASandBoxPawn()
 
 	SceneComponent = CreateDefaultSubobject<USceneComponent>("SceneComponent");
 	SetRootComponent(SceneComponent);
+
+	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("StaticMeshComponent");
+	StaticMeshComponent->SetupAttachment(GetRootComponent());
+
+	CameraComponent = CreateDefaultSubobject<UCameraComponent>("CameraComponent");
+	CameraComponent->SetupAttachment(GetRootComponent());
 
 }
 
@@ -33,6 +42,7 @@ void ASandBoxPawn::Tick(float DeltaTime)
 	{
 		const FVector NewVector = GetActorLocation() + Velocity * DeltaTime * VelocityVector;
 		SetActorLocation(NewVector);
+		VelocityVector = FVector::ZeroVector;
 	}
 }
 
